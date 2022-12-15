@@ -1,3 +1,5 @@
+require './colors.rb'
+
 module Display
 
     def logo
@@ -9,9 +11,22 @@ module Display
 
     def introduction
         puts 
-        puts "Hints: Empty circle means that number/color that the breaker put in is apart of the code"
-        puts "Colored circle means one of the numbers/colors that the break put is in the correct place"
-        puts "Rules are pretty damn complicated. (take your time lol)"
+        puts "Objectives:"
+        puts "Coder: create a code consisting of four numbers (the computer will try to crack it)"
+        puts "Breaker: the computer will create a code (you will have 12 attempts to break it)"
+        puts
+        puts "How hints work:"
+        puts "#{black_circle} = one of the numbers you entered exists in the code but is not in the right position"
+        puts "#{white_circle} = one of the numbers you entered exists in the code and is in the right position"
+        puts
+    end
+
+    def black_circle
+        "◉".black
+    end
+
+    def white_circle
+        "◉"
     end
 
     def error_messages(message)
