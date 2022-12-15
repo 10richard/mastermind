@@ -8,6 +8,7 @@ class SelectMode
         logo
         puts
         introduction
+        puts
         puts instructions('mode')
         until @success
             @mode = gets.chomp.to_i
@@ -23,5 +24,9 @@ class SelectMode
         else
             puts error_messages('mode')
         end
+    end
+
+    def get_mode
+        return @mode
     end
 end
