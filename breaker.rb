@@ -6,10 +6,10 @@ class Breaker
     attr_accessor :guess, :attempts_left
 
     def initialize
+        @finished = false
         @code = generate_code
         @guess = []
         @attempts_left = 12
-        p @code
     end
 
     def generate_code
@@ -22,7 +22,15 @@ class Breaker
     end
 
     def play
-        puts display_code(@code)
+        until @finished
+            puts instructions('breaker_directions')
+            puts display_attempts(@attempts_left)
+            while @guess.length < 4
+                @guess.push(get_guess)
+            end
+            check_guess(@guess)
+            @finished = true
+        end
     end
 
     def get_guess
