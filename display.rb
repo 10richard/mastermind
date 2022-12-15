@@ -79,7 +79,7 @@ module Display
 
     def display_confirmation(message, code)
         {
-            'confirm_guess' => ""
+            'confirm_guess' => "You guessed #{code}"
         }[message]
     end
 
