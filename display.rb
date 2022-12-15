@@ -35,7 +35,7 @@ module Display
             'mode' => "You did not enter 1 or 2.",
             'more_nums' => "You need to enter at least 4 nums",
             'less_nums' => "You entered too many nums",
-            'not_nums' => "You did not enter integers"
+            'not_nums' => "You did not enter only integers"
         }[message]
     end
 
