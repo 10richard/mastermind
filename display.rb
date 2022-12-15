@@ -33,6 +33,9 @@ module Display
     def error_messages(message)
         {
             'mode' => "You did not enter 1 or 2.",
+            'more_nums' => "You need to enter at least 4 nums",
+            'less_nums' => "You entered too many nums",
+            'not_nums' => "You did not enter integers"
         }[message]
     end
 
@@ -72,6 +75,12 @@ module Display
 
     def display_hints
         
+    end
+
+    def display_confirmation(message, code)
+        {
+            'confirm_guess' => ""
+        }[message]
     end
 
     def display_code(lst)
