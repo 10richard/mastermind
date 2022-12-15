@@ -18,6 +18,7 @@ module Display
         puts "How hints work:"
         puts "#{black_circle} = one of the numbers you entered exists in the code but is not in the right position"
         puts "#{white_circle} = one of the numbers you entered exists in the code and is in the right position"
+        puts "If no circles are displayed, then none of the numbers you entered are included in the code"
         puts
     end
 
@@ -45,7 +46,7 @@ module Display
     end
 
     def display_attempts(attempts)
-        "Attempt #{attempts}:"
+        "#{attempts} attempt(s) left:"
     end
 
     def display_mode(mode)
@@ -67,6 +68,10 @@ module Display
             '5' => '   5   '.bg_green,
             '6' => '   6   '.bg_blue
         }[num]
+    end
+
+    def display_hints
+        
     end
 
     def display_code(lst)
