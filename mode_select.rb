@@ -20,6 +20,7 @@ class SelectMode
         if mode == 1 || mode == 2
             @success = true
             display_mode(mode)
+            puts
             return
         else
             puts error_messages('mode')
