@@ -39,8 +39,13 @@ module Display
         {
             'mode' => "Enter 1 to play as Coder | Enter 2 to play as Breaker",
             'coder' => "Create an unbreakable code! The computer will try to break it...",
-            'breaker' => "Try to break the code! The computer will create it..."
+            'breaker' => "Try to break the code! The computer will create it...",
+            'breaker_directions' => "Enter 4 numbers ranging from 1-6 (ex. 1234)",
         }[message]
+    end
+
+    def display_attempts(attempts)
+        "Attempt #{attempts}:"
     end
 
     def display_mode(mode)
@@ -51,5 +56,24 @@ module Display
             puts "You chose to be a Breaker!"
             puts instructions('breaker')
         end
+    end
+
+    def bgcolor_nums(num)
+        {
+            '1' => '   1   '.bg_red,
+            '2' => '   2   '.bg_yellow,
+            '3' => '   3   '.bg_magenta,
+            '4' => '   4   '.bg_cyan,
+            '5' => '   5   '.bg_green,
+            '6' => '   6   '.bg_blue
+        }[num]
+    end
+
+    def display_code(lst)
+        nums = ''
+        lst.each do |num|
+            nums += " #{bgcolor_nums(num)} "
+        end
+        return nums
     end
 end
