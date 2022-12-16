@@ -32,7 +32,7 @@ class Breaker
             until @got_guess
                 @guess = get_guess
                 puts
-                valid_guess
+                validate_guess
             end
             check_guess
             confirm_code('confirm_guess', @guess, @hints)
@@ -48,7 +48,7 @@ class Breaker
         return guess
     end
 
-    def valid_guess
+    def validate_guess
         if @guess.length != 4
             if @guess.length > 4
                 puts error_messages('less_nums')
