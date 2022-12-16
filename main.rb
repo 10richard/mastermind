@@ -1,4 +1,3 @@
-require './game.rb'
 require './mode_select.rb'
 require './breaker.rb'
 
