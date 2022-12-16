@@ -19,15 +19,16 @@ module Display
         puts "#{black_circle} = one of the numbers you entered exists in the code but is not in the right position"
         puts "#{white_circle} = one of the numbers you entered exists in the code and is in the right position"
         puts "If no circles are displayed, then none of the numbers you entered are included in the code"
+        puts "Hints do not correlate to the position of the numbers"
         puts
     end
 
     def black_circle
-        "◉".black
+        " ◉ ".black
     end
 
     def white_circle
-        "◉"
+        " ◉ "
     end
 
     def error_messages(message)
@@ -35,7 +36,7 @@ module Display
             'mode' => "You did not enter 1 or 2.",
             'more_nums' => "You need to enter at least 4 nums",
             'less_nums' => "You entered too many nums",
-            'not_nums' => "You did not enter only integers"
+            'not_nums' => "You did not enter only integers or entered a number higher than 6"
         }[message]
     end
 
@@ -62,6 +63,20 @@ module Display
         end
     end
 
+    def display_win(mode)
+        {
+            'breaker' => 'You cracked the code! Congratulations!',
+            'coder' => 'You won! The computer was not able to solve your code!'
+        }[mode]
+    end
+
+    def display_lose(mode)
+        {
+            'breaker' => 'You were not able to crack the code. L mans',
+            'coder' => 'The computer cracked your code... smh'
+        }
+    end
+
     def bgcolor_nums(num)
         {
             '1' => '   1   '.bg_red,
@@ -73,14 +88,14 @@ module Display
         }[num]
     end
 
-    def display_hints
-        
+    def display_hints(hints)
+        return hints.join('')
     end
 
-    def display_confirmation(message, code)
-        {
-            'confirm_guess' => "You guessed #{code}"
-        }[message]
+    def confirm_code(message, code, hints)
+        puts "You guessed"
+        puts
+        puts "#{display_code(code)}  #{display_hints(hints)}"
     end
 
     def display_code(lst)
