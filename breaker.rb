@@ -79,10 +79,6 @@ class Breaker
         count = 0
 
         all_nums.each do |code_num, guess_num|
-            p temp_code
-            p temp_guess
-            p code_num
-            p guess_num
             if code_num == guess_num
                 @hints.push(white_circle)
                 temp_guess.delete_at(count)
