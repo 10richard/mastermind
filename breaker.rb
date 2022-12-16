@@ -10,7 +10,8 @@ class Breaker
     def initialize
         @finished = false
         @got_guess = false
-        @code = generate_code
+        @code = ['1', '5', '6', '1']
+        #@code = generate_code
         @hints = []
         @guess = ''
         @attempts_left = 12
@@ -78,20 +79,22 @@ class Breaker
         temp_code = @code.dup
         count = 0
 
-        temp_code.each do |code_num|
-            temp_guess.each do |guess_num|
-                p guess_num
-                p code_num
-                p temp_guess
-                p temp_code
-                if code_num == guess_num
-                    temp_guess.delete_at(temp_guess.index(guess_num))
-                    temp_code.delete_at(temp_code.index(code_num))
-                    @hints.push(white_circle)
-                    break
+            temp_code.each do |code_num|
+                catch :take_me_out do
+                temp_guess.each do |guess_num|
+                    p temp_code
+                    p temp_guess
+                    p code_num
+                    p guess_num
+                    if code_num == guess_num
+                        temp_guess.delete_at(temp_guess.index(guess_num))
+                        temp_code.delete_at(temp_code.index(code_num))
+                        @hints.push(white_circle)
+                    end
+                throw :take_me_out
+                end
                 end
             end
-        end
 
         temp_guess.each do |num|
             if temp_code.include?(num)
