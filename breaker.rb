@@ -10,8 +10,7 @@ class Breaker
     def initialize
         @finished = false
         @got_guess = false
-        @code = ['1', '5', '6', '1']
-        #@code = generate_code
+        @code = generate_code
         @hints = []
         @guess = ''
         @attempts_left = 12
@@ -39,7 +38,6 @@ class Breaker
             confirm_code('confirm_guess', @guess, @hints)
             puts
             check_game_over
-            p @code
             @got_guess = false
             @hints = []
         end
@@ -77,51 +75,28 @@ class Breaker
     def check_guess
         temp_guess = @guess.dup
         temp_code = @code.dup
+        all_nums = temp_code.zip(temp_guess)
         count = 0
 
-            temp_code.each do |code_num|
-                catch :take_me_out do
-                temp_guess.each do |guess_num|
-                    p temp_code
-                    p temp_guess
-                    p code_num
-                    p guess_num
-                    if code_num == guess_num
-                        temp_guess.delete_at(temp_guess.index(guess_num))
-                        temp_code.delete_at(temp_code.index(code_num))
-                        @hints.push(white_circle)
-                    end
-                throw :take_me_out
-                end
-                end
+        all_nums.each do |code_num, guess_num|
+            p temp_code
+            p temp_guess
+            p code_num
+            p guess_num
+            if code_num == guess_num
+                @hints.push(white_circle)
+                temp_guess.delete_at(count)
+                temp_code.delete_at(count)
+                count -= 1
             end
+            count += 1
+        end
 
-        temp_guess.each do |num|
-            if temp_code.include?(num)
+        temp_code.each do |num|
+            if temp_guess.include?(num)
                 @hints.push(black_circle)
             end
         end
-
-        #temp_code.each do |code_num|
-            #temp_guess.each do |guess_num|
-                #p "CODE_NUM: #{code_num}"
-                #p "GUESS_NUM: #{guess_num}"
-                #p temp_code
-                #p temp_guess
-                #if code_num == guess_num
-                    #temp_guess.delete(guess_num)
-                    #@hints.push(white_circle)
-                    #break
-                #else
-                    #break
-                #end
-            #end
-        #end
-        #temp_guess.each do |num|
-            #if temp_code.include?(num)
-                #@hints.push(black_circle)
-            #end
-        #end
     end
 
     def check_game_over
