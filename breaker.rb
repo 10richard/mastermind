@@ -8,7 +8,7 @@ class Breaker
     @@valid_nums = ['1', '2', '3', '4', '5', '6']
 
     def initialize
-        @finished = false
+        @game_over = false
         @got_guess = false
         @code = generate_code
         @hints = []
@@ -26,7 +26,7 @@ class Breaker
     end
 
     def play
-        until @finished
+        until @game_over
             puts instructions('breaker_directions')
             puts display_attempts(@attempts_left)
             until @got_guess
@@ -35,7 +35,7 @@ class Breaker
                 validate_guess
             end
             check_guess
-            confirm_code('confirm_guess', @guess, @hints)
+            puts confirm_code('player', @guess, @hints)
             puts
             check_game_over
             @got_guess = false
@@ -97,10 +97,10 @@ class Breaker
 
     def check_game_over
         if @guess == @code
-            @finished = true
+            @game_over = true
             puts display_win('breaker')
-        elsif @attempts == 0
-            @finished = true
+        elsif @attempts_left <= 0
+            @game_over = true
             puts display_lose('breaker')
         end
     end
