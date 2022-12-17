@@ -36,7 +36,7 @@ module Display
             'mode' => "You did not enter 1 or 2.",
             'more_nums' => "You need to enter at least 4 nums",
             'less_nums' => "You entered too many nums",
-            'not_nums' => "You did not enter only integers or entered a number higher than 6"
+            'not_nums' => "You did not enter only integers or/and entered a number higher than 6"
         }[message]
     end
 
@@ -44,8 +44,9 @@ module Display
         {
             'mode' => "Enter 1 to play as Coder | Enter 2 to play as Breaker",
             'coder' => "Create an unbreakable code! The computer will try to break it...",
+            'coder_directions' => "Create a code consisting of 4 numbers that range from 1-6 (ex. 1234)",
             'breaker' => "Try to break the code! The computer will create it...",
-            'breaker_directions' => "Enter 4 numbers ranging from 1-6 (ex. 1234)",
+            'breaker_directions' => "Guess 4 numbers ranging from 1-6 (ex. 1234)",
         }[message]
     end
 
@@ -74,7 +75,7 @@ module Display
         {
             'breaker' => 'You were not able to crack the code. L mans',
             'coder' => 'The computer cracked your code... smh'
-        }
+        }[mode]
     end
 
     def bgcolor_nums(num)
@@ -93,9 +94,11 @@ module Display
     end
 
     def confirm_code(message, code, hints)
-        puts "You guessed"
-        puts
-        puts "#{display_code(code)}  #{display_hints(hints)}"
+        {
+            'player' => "You guessed \n\n#{display_code(code)}  #{display_hints(hints)}\n",
+            'computer' => "Computer guessed\n\n#{display_code(code)}  #{display_hints(hints)}\n"
+        
+        }[message]
     end
 
     def display_code(lst)
