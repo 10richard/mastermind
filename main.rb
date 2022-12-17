@@ -1,4 +1,5 @@
 require './mode_select.rb'
+require './coder.rb'
 require './breaker.rb'
 
 game_mode = SelectMode.new()
