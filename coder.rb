@@ -12,10 +12,13 @@ class Coder < Breaker
         @code = get_code
         @mode = 'coder'
         @attempts_left = 12
-        @count = 1
+        @count = 0
+        @turn_count = 1
         @guess = []
+        @display_hints = []
         @hints = []
         @saved_nums = []
+        @nums_not_found = true
     end
 
     def get_code
@@ -55,28 +58,72 @@ class Coder < Breaker
             @guess = generate_guess
             check_guess
             puts
-            puts confirm_code('computer', @guess, @hints)
+            puts confirm_code('computer', @guess, @display_hints)
             puts
+            check_hints
             check_game_over
+            @display_hints = []
+            @hints = []
+            @guess = []
         end
     end
 
     def generate_guess
         guess = ''
-        if @hints.empty?
+        if @nums_not_found
             while guess.length != 4
-                guess += @count.to_s
+                guess += @turn_count.to_s
             end
-            @count += 1
+            @turn_count += 1
         else
-
+            guess = @saved_nums.shuffle
+            @attempts_left -= 1
+            return guess
         end
         @attempts_left -= 1
         return guess.split('')
     end
 
-    def check_hints
+    def check_guess
+        temp_guess = @guess.dup
+        temp_code = @code.dup
+        all_nums = temp_code.zip(temp_guess)
+        counter = 0
 
+        all_nums.each do |code_num, guess_num|
+            if code_num == guess_num
+                @display_hints.push(white_circle)
+                @hints.push('w')
+                temp_guess.delete_at(counter)
+                temp_code.delete_at(counter)
+                counter -= 1
+            end
+            counter += 1
+        end
+
+        temp_code.each do |num|
+            if temp_guess.include?(num)
+                @display_hints.push(black_circle)
+                @hints.push('b')
+            end
+        end
+    end
+
+    def check_hints
+        @count += 1
+        if @hints.any?('w')
+            if @count > 6
+                return
+            elsif @saved_nums.length != 4
+                @hints.each do |hint|
+                    if hint == 'w'
+                        @saved_nums.push(@count.to_s)
+                    end
+                end
+            end
+        elsif @saved_nums.length == 4
+            @nums_not_found = false
+        end
     end
 
     def check_game_over
